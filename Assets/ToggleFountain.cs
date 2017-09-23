@@ -27,7 +27,7 @@ public class ToggleFountain : MonoBehaviour {
 		}
 	}
 
-	void Toggle()
+	public void Toggle()
 	{
 		ParticleSystem.EmissionModule em = ps.emission;
 		em.enabled = !em.enabled;
