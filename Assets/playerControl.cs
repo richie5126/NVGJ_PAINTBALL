@@ -79,6 +79,12 @@ public class playerControl : MonoBehaviour
     void Update()
     {
 
+
+		if (currentState == 2)
+			jumpsPossible = 2;
+		else
+			jumpsPossible = 1;
+		
         if (Input.GetKeyDown(resetState))
         {
             ChangeColor(colorOfNothing);
@@ -109,7 +115,9 @@ public class playerControl : MonoBehaviour
 
         if (isGround && Input.GetKeyDown(jumpButton))
         {
-            rb.AddForce(new Vector2(0, (-rb.velocity.y * rb.mass) + jumpForce));
+			rb.velocity = new Vector2 (rb.velocity.x, 0.0f);
+
+            rb.AddForce(new Vector2(0, jumpForce));
 
             jumpsRemaining--;
 
@@ -124,7 +132,15 @@ public class playerControl : MonoBehaviour
 		if(other.collider.tag.Equals("ground"))
 		{
         isGround = true;
+		jumpsRemaining = jumpsPossible;
 		}
-        jumpsRemaining = jumpsPossible;
+
+		if (other.collider.tag.Equals ("jumpable_wall") && currentState == 3) 
+		{
+			isGround = true;
+			jumpsRemaining = jumpsPossible;
+		}
+        
+
     }
 }
