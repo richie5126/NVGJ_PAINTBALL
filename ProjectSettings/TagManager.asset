@@ -8,6 +8,7 @@ TagManager:
   - redground
   - greenground
   - blueground
+  - jumpable_wall
   layers:
   - Default
   - TransparentFX
