@@ -20,7 +20,6 @@ public class playerControl : MonoBehaviour
 
     public KeyCode jumpButton = KeyCode.W;
     public KeyCode resetLevel = KeyCode.R;
-    public KeyCode resetState = KeyCode.Space;
 
     public float jumpsPossible = 2.0f;
     private float jumpsRemaining;
@@ -29,6 +28,7 @@ public class playerControl : MonoBehaviour
 	public int getCurrentState(){
 		return currentState;
 	}
+
 	public Color getCurrentColor()
 	{
 		if (currentState == 1)
@@ -42,19 +42,22 @@ public class playerControl : MonoBehaviour
 	}
     public void ChangeColor(Color color)
     {
-		if (color.Equals (colorOfSpeed)) {
+		if (color.Equals (colorOfSpeed))
+        {
 			currentState = 1;
-
-			GetComponent<TrailRenderer> ().material.SetColor ("_TintColor", colorOfSpeed);
+			GetComponent<TrailRenderer>().material.SetColor ("_TintColor", colorOfSpeed);
 			GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor", colorOfSpeed);
 		}
-		if (color.Equals (colorOfJump)) {
 
+		if (color.Equals (colorOfJump))
+        {
 			GetComponent<TrailRenderer> ().material.SetColor ("_TintColor", colorOfJump);
 			GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor", colorOfJump);
 			currentState = 2;
 		}
-		if (color.Equals (colorOfWallJump)) {
+
+		if (color.Equals (colorOfWallJump))
+        {
 			currentState = 3;
 			GetComponent<TrailRenderer> ().material.SetColor ("_TintColor", colorOfWallJump);
 			GetComponent<ParticleSystemRenderer> ().material.SetColor ("_TintColor", colorOfWallJump);
@@ -68,14 +71,23 @@ public class playerControl : MonoBehaviour
 
 	public void ChangeColor(int pState)
 	{
-		if (pState == 1) {
-			ChangeColor (colorOfSpeed);
+		if (pState == 1)
+        {
+            jumpsPossible = 1;
+            ChangeColor (colorOfSpeed);
 		}
-		if (pState == 2) {
-			ChangeColor (colorOfJump);
+
+		if (pState == 2)
+        {
+            jumpsPossible = 2;
+            ChangeColor (colorOfJump);
 		}
-		if(pState == 3)
-			ChangeColor(colorOfWallJump);
+
+        if (pState == 3)
+        {
+            jumpsPossible = 1;
+            ChangeColor(colorOfWallJump);
+        }
 	}
 
     public bool isGround = true;
@@ -92,29 +104,26 @@ public class playerControl : MonoBehaviour
     void Update()
     {
 
-
-		if (currentState == 2)
-			jumpsPossible = 2;
-		else
-			jumpsPossible = 1;
-		
-        if (Input.GetKeyDown(resetState))
+        if (currentState == 1)
         {
-            ChangeColor(colorOfNothing);
+            trueWalkSpeed = redSpeed;
         }
-		if (currentState == 1)
-			trueWalkSpeed = redSpeed;
-		else
-			trueWalkSpeed = walkSpeed;
+
+        else
+        {
+            trueWalkSpeed = walkSpeed;
+        }
 
         if (Input.GetKeyDown(resetLevel))
         {
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
+
         if (Mathf.Abs(rb.velocity.x) > trueWalkSpeed)
         {
             rb.AddForce(new Vector2(-rb.velocity.x * rb.mass, 0f));
         }
+
         //move player horizontally
         else if (Input.GetAxis("Horizontal") != 0 && Mathf.Abs(rb.velocity.x) <= trueWalkSpeed)
         {
@@ -136,7 +145,9 @@ public class playerControl : MonoBehaviour
             jumpsRemaining--;
 
             if (jumpsRemaining == 0)
+            {
                 isGround = false;
+            }
         }
 
     }
@@ -145,8 +156,8 @@ public class playerControl : MonoBehaviour
     {
 		if(other.collider.tag.Equals("ground"))
 		{
-        isGround = true;
-		jumpsRemaining = jumpsPossible;
+            isGround = true;
+		    jumpsRemaining = jumpsPossible;
 		}
 
 		if (other.collider.tag.Equals ("jumpable_wall") && currentState == 3) 
