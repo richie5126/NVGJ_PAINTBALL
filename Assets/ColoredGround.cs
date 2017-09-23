@@ -8,7 +8,6 @@ public class ColoredGround : MonoBehaviour {
 	public int state = 0;
 	public Color color;
 	void Start () {
-		GetComponent<SpriteRenderer> ().color = color;
 		if (state > 3 || state < 0)
 			state = 0;
 	}
