@@ -14,3 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Tutorial2ElectricBoogaloo.unity
     guid: 62783a6276020449c9c4b13ae16f1eea
+  - enabled: 1
+    path: Assets/Scene/FinalScene.unity
+    guid: d2ee7387a4ec84f5d9de77a3b28cfd27
+  - enabled: 1
+    path: Assets/Scene/Level1.unity
+    guid: 9fc2a0ddd55014348828a312d06b1119
+  - enabled: 1
+    path: Assets/Scene/level2.unity
+    guid: 9672e63df1c537e49aef9723320ee983
