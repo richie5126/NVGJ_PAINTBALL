@@ -128,6 +128,7 @@ public class playerControl : MonoBehaviour
 
         if (isGround && Input.GetKeyDown(jumpButton))
         {
+			GetComponent<ParticleSystem>().Emit(10);
 			rb.velocity = new Vector2 (rb.velocity.x, 0.0f);
 
             rb.AddForce(new Vector2(0, jumpForce));
