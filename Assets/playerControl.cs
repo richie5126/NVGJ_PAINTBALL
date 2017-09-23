@@ -42,12 +42,23 @@ public class playerControl : MonoBehaviour
 	}
     public void ChangeColor(Color color)
     {
-		if(color.Equals(colorOfSpeed))
+		if (color.Equals (colorOfSpeed)) {
 			currentState = 1;
-			if(color.Equals(colorOfJump))
-				currentState = 2;
-				if(color.Equals(colorOfWallJump))
-					currentState = 3;
+
+			GetComponent<TrailRenderer> ().material.SetColor ("_TintColor", colorOfSpeed);
+			GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor", colorOfSpeed);
+		}
+		if (color.Equals (colorOfJump)) {
+
+			GetComponent<TrailRenderer> ().material.SetColor ("_TintColor", colorOfJump);
+			GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor", colorOfJump);
+			currentState = 2;
+		}
+		if (color.Equals (colorOfWallJump)) {
+			currentState = 3;
+			GetComponent<TrailRenderer> ().material.SetColor ("_TintColor", colorOfWallJump);
+			GetComponent<ParticleSystemRenderer> ().material.SetColor ("_TintColor", colorOfWallJump);
+		}
 		
         if (gameObject.GetComponent<SpriteRenderer>() != null)
             gameObject.GetComponent<SpriteRenderer>().color = color;
@@ -57,10 +68,12 @@ public class playerControl : MonoBehaviour
 
 	public void ChangeColor(int pState)
 	{
-		if (pState == 1)
+		if (pState == 1) {
 			ChangeColor (colorOfSpeed);
-		if (pState == 2)
+		}
+		if (pState == 2) {
 			ChangeColor (colorOfJump);
+		}
 		if(pState == 3)
 			ChangeColor(colorOfWallJump);
 	}
